@@ -34,7 +34,7 @@ app.get("/", (req, res) => {
 app.get("/url/emotion", (req, res) => {
     const nlu = getNLUInstance();
     const analyzeParams = {
-        'url': req.query.url,
+        'url': req.query.url.trim(),
         'features': {
             'entities': {
                 'emotion': true,
@@ -57,7 +57,7 @@ app.get("/url/emotion", (req, res) => {
 app.get("/url/sentiment", (req, res) => {
     const nlu = getNLUInstance();
     const analyzeParams = {
-        'url': req.query.url,
+        'url': req.query.url.trim(),
         'features': {
             'sentiment': {},
             'entities': {

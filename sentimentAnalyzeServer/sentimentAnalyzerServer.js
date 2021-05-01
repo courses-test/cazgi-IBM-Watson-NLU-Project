@@ -45,7 +45,7 @@ app.get("/url/emotion", (req, res) => {
     };
     nlu.analyze(analyzeParams)
         .then(analysisResults => {
-            // console.log(JSON.stringify(analysisResults, null, 2));
+            console.log(JSON.stringify(analysisResults, null, 2));
             res.send(analysisResults.result.entities[0].emotion);
         })
         .catch(err => {
@@ -59,17 +59,18 @@ app.get("/url/sentiment", (req, res) => {
     const analyzeParams = {
         'url': req.query.url,
         'features': {
+            'sentiment': {},
             'entities': {
                 'emotion': true,
                 'sentiment': true,
-                'limit': 4,
+                'limit': 1,
             }
         },
     };
     nlu.analyze(analyzeParams)
         .then(analysisResults => {
-            // console.log(JSON.stringify(analysisResults, null, 2));
-            res.send(analysisResults.result.entities[0].sentiment.label);
+            console.log(JSON.stringify(analysisResults, null, 2));
+            res.send(analysisResults.result.sentiment.document.label);
         })
         .catch(err => {
             return res.send(err);
@@ -105,6 +106,7 @@ app.get("/text/sentiment", (req, res) => {
     const analyzeParams = {
         'text': req.query.text,
         'features': {
+            'sentiment': {},
             'entities': {
                 'emotion': true,
                 'sentiment': true,
@@ -114,8 +116,8 @@ app.get("/text/sentiment", (req, res) => {
     };
     nlu.analyze(analyzeParams)
         .then(analysisResults => {
-            // console.log(JSON.stringify(analysisResults, null, 2));
-            res.send(analysisResults.result.entities[0].sentiment.label);
+            console.log(JSON.stringify(analysisResults, null, 2));
+            res.send(analysisResults.result.sentiment.document.label);
         })
         .catch(err => {
             return res.send(err);
